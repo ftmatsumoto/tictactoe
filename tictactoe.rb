@@ -1,5 +1,7 @@
 module TicTacToe
 
+	W_CONDITION = [[1,2,3],[4,5,6],[7,8,9],[1,4,7],[2,5,8],[3,6,9],[1,5,9],[3,5,7]]
+
 	class Game
 		attr_accessor :board
 		attr_accessor :free_position
@@ -60,7 +62,18 @@ module TicTacToe
 		end
 
 		def winning_condition?
-			puts "winning"
+			condition = false
+			player_set = (1..9).select { |i| @board[i] == @first_player.marker }
+			W_CONDITION.each do |set|
+				intersect = set & player_set
+				if intersect.length == 3
+					condition = true
+					break
+				else
+					condition = false
+				end
+			end
+			condition
 		end
 
 		def full_board?
@@ -81,6 +94,7 @@ module TicTacToe
 
 	class Player
 		attr_accessor :player
+		attr_accessor :marker
 
 		def initialize(game, player, marker)
 			@game = game
@@ -116,7 +130,7 @@ module TicTacToe
 		def select_position
 			@cell = @game.free_position.sample
 			@game.board[@cell] = @marker
-			print "#{@player} marcou o #{@marker} no #{@cell}:"
+			puts "#{@player} marcou o #{@marker} no #{@cell}!"
 		end
 	end
 
