@@ -52,7 +52,11 @@ module TicTacToe
 					break
 				end
 				@first_player.select_position
-				break if winning_condition?
+				if winning_condition?
+					print_board
+					puts "#{@first_player.player} ganhou!"
+					break 
+				end
 				switch
 			end
 		end
