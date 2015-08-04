@@ -89,11 +89,7 @@ module TicTacToe
 		end
 
 		def valid_input?
-			if @game.free_position.index(@cell) != nil && @cell > 0 && @cell <= 9
-				true
-			else
-				false
-			end
+			@game.free_position.index(@cell) != nil && @cell > 0 && @cell <= 9 ? true : false
 		end
 	end
 
@@ -118,7 +114,9 @@ module TicTacToe
 
 	class ComputerPlayer < Player
 		def select_position
-			print "#{@player}: Marque o #{@marker} na posição (1,2,3,4,5,6,7,8,9):"
+			@cell = @game.free_position.sample
+			@game.board[@cell] = @marker
+			print "#{@player} marcou o #{@marker} no #{@cell}:"
 		end
 	end
 
